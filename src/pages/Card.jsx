@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {format} from "timeago.js";
-
+import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
 const Container = styled.div`
   width: ${(props) => props.type !== "sm" && "360px"};
   margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
@@ -73,6 +73,7 @@ const Card = ({ type, video }) => {
           type={type}
           src={video.pic}
         />
+        <div style={{display:'flex',justifyContent:'space-between'}}>
         <Details type={type}>
           <ChannelImage
             type={type}
@@ -84,6 +85,8 @@ const Card = ({ type, video }) => {
             <Info>{video.view} views • {format(video.createdAt)}</Info>
           </Texts>
         </Details>
+        <div className='myb32'><MoreVertSharpIcon className='myb321' onClick={()=>setOp(true)}/>{Op && <div style={{position:'absolute',marginLeft:'-59px',marginTop:'-7px'}}><div className='op' onClick={()=>copyf(post.link)} style={{border:'2px solid black',padding:'3px',textAlign: 'center',alignItems:'center' }}>{mycpy}</div>{post.user_id===user._id?<div className='op' onClick={()=>deletepost(post._id)} style={{border:'2px solid black',padding:'3px'}}>delete post</div>:''}</div>}</div>
+      </div>
       </Container>
     </Link>
   );

@@ -1,10 +1,11 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import apiClient from "../apiclient";
-
 import {useState,useEffect} from 'react'
 import {format} from 'timeago.js'
+import MoreVertSharpIcon from '@mui/icons-material/MoreVertSharp';
 const Container = styled.div`
   width: ${(props) => props.type !== "sm" && "360px"};
   margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
@@ -67,14 +68,38 @@ const Card = (currentvideo) => {
     }
     fectvideo()
   },[]) 
-
+  const deletepost=async(theid)=>{
+    const valeur=window.confirm('are you sure yo want to delete this post')
+    if(valeur){
+       await apiClient.delete(`videos/deletevideo/${theid}`) 
+       window.location.reload()
+    }
+    
+}
+const [mycpy,setmycpy]=useState('Copy link')
+const [Op,setOp]=useState(false)
+const couper=()=>{
+    setTimeout(
+        () => setOp(false), 
+        3000
+      );
+}
+const copyf=(lien)=>{
+navigator.clipboard.writeText(lien)
+setmycpy('Copied')
+couper()
+} 
   return (
-    <Link to={`/video/test?id=${currentvideo.currentvideo._id}`} style={{ textDecoration: "none" }}>
+    
       <Container >
+        <Link to={`/video/test?id=${currentvideo.currentvideo._id}`} style={{ textDecoration: "none" }}>
         <Image
        
           src={currentvideo.currentvideo.pic}
         />
+        </Link>
+        <div style={{display:'flex',justifyContent:'space-between'}}>
+        <Link to={`/video/test?id=${currentvideo.currentvideo._id}`} style={{ textDecoration: "none" }}>
         <Details >
           <ChannelImage
             
@@ -86,8 +111,11 @@ const Card = (currentvideo) => {
             <Info>{currentvideo.currentvideo.view} views • {format(currentvideo.currentvideo.createdAt)}</Info>
           </Texts>
         </Details>
+        </Link>
+        <div className='myb32'><MoreVertSharpIcon style={{color:'white',marginTop:'10px'}} onClick={()=>setOp(true)}/>{Op && <div style={{position:'absolute',marginLeft:'-59px',marginTop:'-6px',color:'white'}}><div className='op' onClick={()=>copyf(`https://irengetubefront.vercel.app/video/test?id=${currentvideo.currentvideo._id}`)} style={{border:'2px solid black',padding:'3px',textAlign: 'center',alignItems:'center' }}>{mycpy}</div>{currentvideo.currentvideo?.userID===channel?._id?<div className='op' onClick={()=>deletepost(currentvideo.currentvideo._id)} style={{border:'2px solid black',padding:'3px'}}>delete post</div>:''}</div>}</div>
+</div>
       </Container>
-    </Link>
+    
   );
 };
 

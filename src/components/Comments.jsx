@@ -94,7 +94,7 @@ cursor: pointer;
   return (
     <Container>
       <NewComment>
-        <Avatar src={currentuser.profilepicture?currentuser.profilepicture:'/assets/user.png'} />
+        <Avatar src={currentuser.profilepicture===null?'/assets/user.png':currentuser.profilepicture} />
         <Input ref={mycontent} placeholder="Add a comment..." onFocus={()=>setmybutton(true)}/>
        
       </NewComment>
