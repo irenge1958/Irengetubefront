@@ -102,6 +102,7 @@ const handlesignup = async (e) => {
       username: usernamex.current.value
     });
     console.log('Response:', response.data);
+    dispatch(successfecth(response.data.user))
     navigateto('/')
   } catch (error) {
     if (apiClient.isapiClientError(error)) {
@@ -131,7 +132,7 @@ console.log(err)
     <Container>
       <Wrapper>
         <Title>Sign in</Title>
-        <SubTitle>to continue to LamaTube</SubTitle>
+        <SubTitle>continue to IrengeTube</SubTitle>
         <Input placeholder="email" ref={username} required/>
         <Input type="password" ref={password} placeholder="password" required/>
         <Button onClick={handlesignin}>Sign in</Button>

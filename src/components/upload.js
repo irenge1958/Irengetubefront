@@ -65,7 +65,7 @@ const navigateto=useNavigate();
     };
 
     return (
-        <div style={{ position: 'fixed', zIndex: '100000000', left: '0', top: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+        <div style={{ position: 'fixed', zIndex: '100000000', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
             <ModalContent>
                 <span>
                     <p style={{ color: '#aaa', float: 'right', fontSize: '28px', fontWeight: 'bold', cursor: 'pointer' }} onClick={() => setpop(false)}>x</p>
@@ -104,7 +104,7 @@ const navigateto=useNavigate();
 const ModalContent = styled.div`
   z-index: 200000000;
   background-color: ${({ theme }) => theme.bgLighter};
-  margin: 10% auto;
+  margin: -3% auto;
   padding: 20px;
   border-radius: 8px;
   width: 500px;
