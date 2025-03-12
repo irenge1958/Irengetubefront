@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {format} from "timeago.js";
 import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
+import MoreVertSharpIcon from '@mui/icons-material/MoreVertSharp';
 const Container = styled.div`
   width: ${(props) => props.type !== "sm" && "360px"};
   margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
@@ -65,7 +66,27 @@ const Card = ({ type, video }) => {
     };
     fetchChannel();
   }, [video.userId]);
-
+  const deletepost=async(theid)=>{
+    const valeur=window.confirm('are you sure yo want to delete this post')
+    if(valeur){
+       await apiClient.delete(`videos/deletevideo/${theid}`) 
+       window.location.reload()
+    }
+    
+}
+  const [mycpy,setmycpy]=useState('Copy link')
+  const [Op,setOp]=useState(false)
+  const couper=()=>{
+      setTimeout(
+          () => setOp(false), 
+          3000
+        );
+  }
+  const copyf=(lien)=>{
+  navigator.clipboard.writeText(lien)
+  setmycpy('Copied')
+  couper()
+  } 
   return (
     <Link to={`/video/test?id=${video._id}`} style={{ textDecoration: "none" }}>
       <Container type={type}>
@@ -85,7 +106,7 @@ const Card = ({ type, video }) => {
             <Info>{video.view} views • {format(video.createdAt)}</Info>
           </Texts>
         </Details>
-        <div className='myb32'><MoreVertSharpIcon className='myb321' onClick={()=>setOp(true)}/>{Op && <div style={{position:'absolute',marginLeft:'-59px',marginTop:'-7px'}}><div className='op' onClick={()=>copyf(post.link)} style={{border:'2px solid black',padding:'3px',textAlign: 'center',alignItems:'center' }}>{mycpy}</div>{post.user_id===user._id?<div className='op' onClick={()=>deletepost(post._id)} style={{border:'2px solid black',padding:'3px'}}>delete post</div>:''}</div>}</div>
+        <div className='myb32'><MoreVertSharpIcon className='myb321' onClick={()=>setOp(true)}/>{Op && <div style={{position:'absolute',marginLeft:'-59px',marginTop:'-7px'}}><div className='op' onClick={()=>copyf(`https://irengetubefront.vercel.app/video/test?id=${video.link}`)} style={{border:'2px solid black',padding:'3px',textAlign: 'center',alignItems:'center' }}>{mycpy}</div>{post.user_id===user._id?<div className='op' onClick={()=>deletepost(video._id)} style={{border:'2px solid black',padding:'3px'}}>delete post</div>:''}</div>}</div>
       </div>
       </Container>
     </Link>
