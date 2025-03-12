@@ -67,14 +67,7 @@ const Card = ({ type, video }) => {
     };
     fetchChannel();
   }, [video.userId]);
-  const deletepost=async(theid)=>{
-    const valeur=window.confirm('are you sure yo want to delete this post')
-    if(valeur){
-       await apiClient.delete(`videos/deletevideo/${theid}`) 
-       window.location.reload()
-    }
-    
-}
+
   const [mycpy,setmycpy]=useState('Copy link')
   const [Op,setOp]=useState(false)
   const couper=()=>{
@@ -107,7 +100,7 @@ const Card = ({ type, video }) => {
             <Info>{video.view} views • {format(video.createdAt)}</Info>
           </Texts>
         </Details>
-        <div className='myb32'><MoreVertSharpIcon className='myb321' onClick={()=>setOp(true)}/>{Op && <div style={{position:'absolute',marginLeft:'-59px',marginTop:'-7px'}}><div className='op' onClick={()=>copyf(`https://irengetubefront.vercel.app/video/test?id=${video.link}`)} style={{border:'2px solid black',padding:'3px',textAlign: 'center',alignItems:'center' }}>{mycpy}</div>{post.user_id===user._id?<div className='op' onClick={()=>deletepost(video._id)} style={{border:'2px solid black',padding:'3px'}}>delete post</div>:''}</div>}</div>
+        <div className='myb32'><MoreVertSharpIcon className='myb321' onClick={()=>setOp(true)}/>{Op && <div style={{position:'absolute',marginLeft:'-59px',marginTop:'-7px'}}><div className='op' onClick={()=>copyf(`https://irengetubefront.vercel.app/video/test?id=${video.link}`)} style={{border:'2px solid black',padding:'3px',textAlign: 'center',alignItems:'center' }}>{mycpy}</div></div>}</div>
       </div>
       </Container>
     </Link>
