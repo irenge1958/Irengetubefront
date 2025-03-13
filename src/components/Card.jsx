@@ -89,6 +89,14 @@ navigator.clipboard.writeText(lien)
 setmycpy('Copied')
 couper()
 } 
+const handleClick = (event) => {
+  if (Op && !event.target.classList.contains("op")) {
+      setOp(false);
+  }
+};
+
+
+window.addEventListener("click", handleClick);
   return (
     
       <Container >
