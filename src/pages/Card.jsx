@@ -81,9 +81,16 @@ const Card = ({ type, video }) => {
   setmycpy('Copied')
   couper()
   } 
-  if (Op) {
-    window.onclick = couper; // Assign function reference correctly
-}
+
+  const handleClick = (event) => {
+    if (Op && !event.target.classList.contains("op")) {
+        setOp(false);
+    }
+};
+
+
+window.addEventListener("click", handleClick);
+
 
   return (
     <Link to={`/video/test?id=${video._id}`} style={{ textDecoration: "none" }}>
