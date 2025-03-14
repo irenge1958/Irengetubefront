@@ -81,7 +81,7 @@ const [Op,setOp]=useState(false)
 const couper=()=>{
     setTimeout(
         () => setOp(false), 
-        3000
+        2000
       );
 }
 const copyf=(lien)=>{
@@ -119,7 +119,7 @@ window.addEventListener("click", handleClick);
           </Texts>
         </Details>
         </Link>
-        <div className='myb32'><MoreVertSharpIcon style={{color:'white',marginTop:'10px'}} id='modal' onClick={()=>setOp(true)}/>{Op && <div style={{position:'absolute',marginLeft:'-59px',marginTop:'-6px',color:'white'}}><div className='op' onClick={()=>copyf(`https://irengetubefront.vercel.app/video/test?id=${currentvideo.currentvideo._id}`)} style={{border:'2px solid black',padding:'3px',textAlign: 'center',alignItems:'center' }}>{mycpy}</div>{currentvideo.currentvideo?.userID===channel?._id?<div className='op' onClick={()=>deletepost(currentvideo.currentvideo._id)} style={{border:'2px solid black',padding:'3px'}}>delete post</div>:''}</div>}</div>
+        <div className='myb32'><MoreVertSharpIcon style={{color:'white',marginTop:'10px'}} id='modal' onClick={()=>setOp(true)}/>{Op && <div style={{position:'absolute',marginLeft:'-59px',marginTop:'-6px',color:'white'}}><div className='op' id='modal' onClick={()=>copyf(`https://irengetubefront.vercel.app/video/test?id=${currentvideo.currentvideo._id}`)} style={{border:'2px solid black',padding:'3px',textAlign: 'center',alignItems:'center' }}>{mycpy}</div>{currentvideo.currentvideo?.userID===channel?._id?<div className='op' onClick={()=>deletepost(currentvideo.currentvideo._id)} style={{border:'2px solid black',padding:'3px'}}>delete post</div>:''}</div>}</div>
 </div>
       </Container>
     
