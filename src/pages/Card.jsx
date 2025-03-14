@@ -77,7 +77,7 @@ const Card = ({ type, video }) => {
         <Details type={type}>
           <ChannelImage
             type={type}
-            src={'https://lh3.googleusercontent.com/a/ACg8ocKiNkvc9jC4mY4y1Af3ieT-F91AwDZ9djhoXT6eYsJ_i_hduU8=s96-c'}
+            src={channel.profilepicture?channel.profilepicture:'/assets/user.png'}
           />
           <Texts>
             <Title>{video.title}</Title>

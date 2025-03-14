@@ -110,7 +110,7 @@ window.addEventListener("click", handleClick);
         <Details >
           <ChannelImage
             
-            src={channel?.profilepicture}
+            src={channel?.profilepicture?channel?.profilepicture:'/assets/user.png'}
           />
           <Texts>
             <Title>{currentvideo.currentvideo.title}</Title>

@@ -87,7 +87,7 @@ const Card2 = ({ type, video }) => {
           
             <ChannelImage
             type={type}
-            src={channel.profilepicture}
+            src={channel.profilepicture?channel.profilepicture:'/assets/user.png'}
           />
             <ChannelName>{channel.username}</ChannelName>
             
