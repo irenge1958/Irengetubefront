@@ -6,7 +6,7 @@ import {useState,useEffect} from 'react'
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap:7px;
   flex-wrap: wrap;
 `;
 
