@@ -7,11 +7,11 @@ import {useState,useEffect} from 'react'
 import {format} from 'timeago.js'
 import MoreVertSharpIcon from '@mui/icons-material/MoreVertSharp';
 const Container = styled.div`
-  width: ${(props) => props.type !== "sm" && "300px"};
-  margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
+  width: ${(props) => props.type !== "sm" && "340px"};
+  margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "25px")};
   cursor: pointer;
   display: ${(props) => props.type === "sm" && "flex"};
-  gap: 5px;
+
 `;
 
 const Image = styled.img`
