@@ -3,18 +3,19 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {format} from "timeago.js";
-import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
+
 const Container = styled.div`
-  width: ${(props) => props.type !== "sm" && "360px"};
-  margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
+  width: 100%;
+  margin-bottom:10px;
   cursor: pointer;
   display: ${(props) => props.type === "sm" && "flex"};
   gap: 10px;
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: ${(props) => (props.type === "sm" ? "120px" : "202px")};
+width:150px;
+  width: 200px;
+  height: ${(props) => (props.type === "sm" ? "120px" : "140px")};
   background-color: #999;
   flex: 1;
 `;
@@ -65,19 +66,21 @@ const Card = ({ type, video }) => {
     };
     fetchChannel();
   }, [video.userId]);
-
+const history=async()=>{
+const myhistory=await apiClient.post(``)
+}
   return (
-    <Link to={`/video/test?id=${video._id}`} style={{ textDecoration: "none" }}>
+    <Link to={`/video/test?id=${video._id}`} onClick={history} style={{ textDecoration: "none" }}>
       <Container type={type}>
         <Image
-          type={type}
+          
           src={video.pic}
+      
         />
-        <div style={{display:'flex',justifyContent:'space-between'}}>
         <Details type={type}>
           <ChannelImage
             type={type}
-            src={channel.profilepicture?channel.profilepicture:'/assets/user.png'}
+            src={channel?.profilepicture?channel?.profilepicture:'/assets/user.png'}
           />
           <Texts>
             <Title>{video.title}</Title>
@@ -85,8 +88,6 @@ const Card = ({ type, video }) => {
             <Info>{video.view} views • {format(video.createdAt)}</Info>
           </Texts>
         </Details>
-       
-      </div>
       </Container>
     </Link>
   );

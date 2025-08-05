@@ -8,6 +8,7 @@ import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
 import Comments from "../components/Comments";
 import Card2 from "./card2";
+import Card from "./Card";
 import {successfecth,likevideo,dislikevideo} from '../redux/videoreducer'
 import {sub} from '../redux/userReducer'
 import {useSelector,useDispatch} from 'react-redux'
@@ -15,7 +16,7 @@ import {useEffect,useState} from 'react'
 import apiClient from "../apiclient";
 import {format} from 'timeago.js'
 import { useLocation } from "react-router-dom";
-
+import { useMediaQuery } from 'react-responsive';
 const Container = styled.div`
   display: flex;
   gap: 24px;
@@ -80,7 +81,9 @@ const ChannelName = styled.span`
 
 const Videor = () => {
   
-
+  const isDesktop = useMediaQuery({ minWidth: 1224 });
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1224 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   const dispatch=useDispatch()
   const location = useLocation();
   
@@ -114,7 +117,7 @@ dispatch(successfecth(getvideo.data))
   return (
     <Container>
       <Recommendation>
-      {suggestedvideos.length>0?suggestedvideos.map((x)=>{return <Card2 type="bg" video={x} />}):'no related found'}
+      {suggestedvideos.length>0?suggestedvideos.map((x)=>{return isMobile?<Card  video={x} />:<Card2 type="bg" video={x} />}):'no related found'}
       </Recommendation>
     </Container>
   );

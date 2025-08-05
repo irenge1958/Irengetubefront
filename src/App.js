@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import Video from "./pages/Video";
 import SignIn from "./pages/SignIn";
 import Videor from "./pages/Videor";
+import { useMediaQuery } from 'react-responsive';
+import Navbar2 from "./components/Navbar2";
 const Container = styled.div`
   display: flex;
 `;
@@ -17,17 +19,19 @@ const Main = styled.div`
   background-color: ${({ theme }) => theme.bg};
 `;
 const Wrapper = styled.div`
-  padding: 10px 36px;
+  padding: 12px 36px;
 `;
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
-
+  const isDesktop = useMediaQuery({ minWidth: 1224 });
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1224 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <Container>
         <BrowserRouter>
-          <Menu darkMode={darkMode} setDarkMode={setDarkMode} />
+        {!isMobile && <Menu darkMode={darkMode} setDarkMode={setDarkMode} />}
           <Main>
             <Navbar />
             <Wrapper>
@@ -44,7 +48,9 @@ function App() {
                 </Route>
               </Routes>
             </Wrapper>
+            {isMobile && <Navbar2 darkMode={darkMode} setDarkMode={setDarkMode} />}
           </Main>
+          
         </BrowserRouter>
       </Container>
     </ThemeProvider>
