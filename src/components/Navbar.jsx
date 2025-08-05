@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import EditIcon from '@mui/icons-material/Edit';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from "react-router-dom";
 import {useSelector,useDispatch} from 'react-redux'
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -12,13 +14,32 @@ import Upload from './upload'
 import {logout} from '../redux/userReducer'
 import apiClient from "../apiclient";
 import {useRef} from "react";
+import EditProfilePopup from '../pages/modify'
+import { useMediaQuery } from 'react-responsive';
+import LamaTube from "../img/logo.png";
+import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   position: sticky;
   top: 0;
   background-color: ${({ theme }) => theme.bgLighter};
   height: 56px;
+ 
+`;
+const Img = styled.img`
+  height: 25px;
 `;
 
+const Logo = styled.div`
+ flex:1;
+  align-items: left;
+  gap: 5px;
+  font-weight: bold;
+margin-left:-10px
+`;
+
+const Vid=styled.div`
+color: ${({ theme }) => theme.text}
+`
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -26,6 +47,8 @@ const Wrapper = styled.div`
   height: 100%;
   padding: 0px 20px;
   position: relative;
+  baseline:1;
+
 `;
 
 const Searchx = styled.div`
@@ -41,8 +64,9 @@ const Searchx = styled.div`
  
 
 `;
+
 const Search = styled.div`
-  width: 40%;
+  width: 70%;
   position: absolute;
   left: 0px;
   right: 0px;
@@ -72,9 +96,19 @@ const Button = styled.button`
   align-items: center;
   gap: 5px;
 `;
+
 const Navbar = () => {
+  const [popx,setPopx]=useState(false) 
+  const navigate = useNavigate();
+    const displaymod=()=>{
+      setPopx(true)
+    }
+    const isDesktop = useMediaQuery({ minWidth: 1224 });
+    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1224 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
   const mysearch=useRef()
 const [param,setparam]=useState(false)
+const [paramx,setparamx]=useState(false)
 const [pop,setpop]=useState(false)
 const [result,setResults]=useState([])
 const dispatch=useDispatch()
@@ -86,7 +120,13 @@ const dispatch=useDispatch()
         }
        
     };
-    
+    const handleClickOutsidex = (event) => {
+   
+      if (paramx && event.target.id!=='modalx') {
+          setparamx(false);
+      }
+     
+  };
     const handleClickOutsides = (event) => {
    
       if (result.length!==0 && event.target.id!=='modal1') {
@@ -114,7 +154,7 @@ const Searched = styled.div`
    
   }
 `;
-
+window.addEventListener('click', handleClickOutsidex);
     window.addEventListener('click', handleClickOutside);
     window.addEventListener('click', handleClickOutsides);
     const handlesearch=async(q)=>{
@@ -131,7 +171,7 @@ const Searched = styled.div`
   margin-left:-8px;
  
   border-radius: 8px;
-  width:540px;
+  
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: ${({ theme }) => theme.text};
 
@@ -158,11 +198,15 @@ const Userbadge=styled.div`
     <Container>
       <>
       <Wrapper>
+      {isMobile && <Logo onClick={() => navigate("/")}>
+            <Img src={LamaTube} />
+            
+          </Logo>}
         <Search>
           <Searchx>
           <Input placeholder="Search" id="modal1" ref={mysearch} onChange={(e)=>handlesearch(e.target.value)}/>
           <SearchOutlinedIcon /></Searchx>
-          <Searchbox>
+          <Searchbox style={isMobile?{width:'540px'}:{width:'200px'}}>
        {result && result.map((a)=>{
 return <><Link style={{ textDecoration: 'none' }} onClick={()=>{givesearch(a.title)}} to={`/videor/test?id=${a._id}`} >
                 <Searched>
@@ -178,14 +222,90 @@ return <><Link style={{ textDecoration: 'none' }} onClick={()=>{givesearch(a.tit
        }) }</Searchbox>
         </Search>
         
-        {currentuser===null ? <Link to="signin" style={{ textDecoration: "none" }}>
-       <Button>
-            <AccountCircleOutlinedIcon />
-            SIGN IN
-          </Button>   
-        </Link>:<span><div style={{color:"white",display:'flex',gap:'10px'}}><div  ><VideoCallIcon id="modal" onClick={()=>setparam(true)} style={{marginTop:'4px',cursor:'pointer',fontSize:'32px'}} /></div><div><NotificationsIcon style={{cursor:'pointer',marginTop:'4px',fontSize:'32px'}} /><Userbadge ><p>1</p></Userbadge></div><img onClick={()=>dispatch(logout())} src={currentuser?.profilepicture?currentuser?.fromgoogle===true?currentuser?.profilepicture:`/assets/${currentuser?.profilepicture}`:'/assets/user.png'} style={{width: "40px", height: "40px",cursor:'pointer', borderRadius: "50%",objectFit: "cover",cursor: "pointer",marginRight: "13px"}} /></div>{param && <div style={{backgroundColor:'white',zIndex:'100000',marginLeft:'-190px',marginTop:'-10px',padding:'10px',borderRadius:'10px',position:'absolute'}}><p style={{cursor:'pointer',display:'flex'}} onClick={()=>setpop(true)}><SlideshowIcon /><span style={{fontSize:'20px'}}>Upload video online</span></p></div>}</span>} 
+        {!isMobile ? (
+  currentuser === null ? (
+    <Link to="signin" style={{ textDecoration: "none" }}>
+      <Button>
+        <AccountCircleOutlinedIcon />
+        SIGN IN
+      </Button>
+    </Link>
+  ) : (
+    <span>
+      <div style={{ color: "white", display: 'flex', gap: '10px' }}>
+        <Vid>
+          <VideoCallIcon 
+            id="modal" 
+            onClick={() => setparam(true)} 
+            style={{ marginTop: '4px', cursor: 'pointer', fontSize: '32px' }} 
+          />
+        </Vid>
+        <img 
+          id="modalx" 
+          onClick={() => setparamx(true)} 
+          src={currentuser?.profilepicture || '/assets/user.png'} 
+          style={{ 
+            width: "40px", 
+            height: "40px", 
+            borderRadius: "50%", 
+            objectFit: "cover", 
+            cursor: "pointer", 
+            marginRight: "13px" 
+          }} 
+        />
+      </div>
+      
+      {/* Popup for Video Upload */}
+      {param && (
+        <div style={{
+          backgroundColor: 'white',
+          zIndex: '100000',
+          marginLeft: '-190px',
+          marginTop: '-10px',
+          padding: '10px',
+          borderRadius: '10px',
+          position: 'absolute'
+        }}>
+          <p style={{ cursor: 'pointer', display: 'flex' }} onClick={() => setpop(true)}>
+            <SlideshowIcon />
+            <span style={{ fontSize: '20px' }}>Upload video online</span>
+          </p>
+        </div>
+      )}
+      
+      {/* Popup for User Actions */}
+      {paramx && (
+        <div style={{
+          backgroundColor: 'white',
+          zIndex: '100000',
+          marginLeft: '-90px',
+          marginTop: '3px',
+          padding: '10px',
+          borderRadius: '10px',
+          position: 'absolute'
+        }}>
+          <p style={{ cursor: 'pointer', display: 'flex' }} onClick={displaymod}>
+            <EditIcon />
+            <span style={{ fontSize: '20px' }}>Edit info</span>
+          </p>
+          <hr />
+          <p style={{ cursor: 'pointer', display: 'flex' }} onClick={() => setpop(true)}>
+            <SlideshowIcon />
+            <span style={{ fontSize: '20px' }}>Upload videos</span>
+          </p>
+          <hr />
+          <p style={{ cursor: 'pointer', display: 'flex' }} onClick={() => dispatch(logout())}>
+            <LogoutIcon />
+            <span style={{ fontSize: '20px' }}>Log out</span>
+          </p>
+        </div>
+      )}
+    </span>
+  )
+) : null}
       </Wrapper>
 {pop && <Upload setpop={setpop}/>}
+{popx && <EditProfilePopup setPopx={setPopx} />}  
       </>
     </Container>
   );

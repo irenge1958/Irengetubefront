@@ -12,14 +12,17 @@ import { useMediaQuery } from 'react-responsive';
 import Navbar2 from "./components/Navbar2";
 const Container = styled.div`
   display: flex;
+  background-color: ${({ theme }) => theme.bg};
+  height:100%
 `;
 
 const Main = styled.div`
   flex: 7;
   background-color: ${({ theme }) => theme.bg};
+
 `;
 const Wrapper = styled.div`
-  padding: 12px 36px;
+  padding: 12px 1px;
 `;
 
 function App() {

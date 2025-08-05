@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -6,12 +5,17 @@ import apiClient from "../apiclient";
 import {useState,useEffect} from 'react'
 import {format} from 'timeago.js'
 import MoreVertSharpIcon from '@mui/icons-material/MoreVertSharp';
+import {useSelector} from 'react-redux'
+import {successfecth} from '../redux/userReducer'
+import {useDispatch } from 'react-redux'
+import { useMediaQuery } from 'react-responsive';
 const Container = styled.div`
-  width: ${(props) => props.type !== "sm" && "340px"};
-  margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "25px")};
+  width: ${(props) => props.type !== "sm" && "300px"};
+
   cursor: pointer;
   display: ${(props) => props.type === "sm" && "flex"};
-
+  
+  
 `;
 
 const Image = styled.img`
@@ -57,7 +61,10 @@ const Info = styled.div`
 
 
 const Card = (currentvideo) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   console.log(currentvideo)
+  const dispatch=useDispatch()
+  const {currentuser} = useSelector((state) => state.user)
   const [channel,setchannel]=useState({})
   useEffect(()=>{
     const fectvideo=async()=>{
@@ -95,11 +102,17 @@ const handleClick = (event) => {
       setOp(false);
   }
 };
+
+
 window.addEventListener("click", handleClick);
+const history=async()=>{
+
+  const myhistory=await apiClient.post(`/user/history/${currentvideo.currentvideo._id}`,{id:currentuser._id})
+  }
   return (
     
       <Container >
-        <Link to={`/video/test?id=${currentvideo.currentvideo._id}`} style={{ textDecoration: "none" }}>
+        <Link to={`/video/test?id=${currentvideo.currentvideo._id}`} onClick={history} style={{ textDecoration: "none" }}>
         <Image
        
           src={currentvideo.currentvideo.pic}
@@ -110,7 +123,7 @@ window.addEventListener("click", handleClick);
         <Details >
           <ChannelImage
             
-            src={channel?.profilepicture?channel?.profilepicture:'/assets/user.png'}
+             src={channel?.profilepicture?channel?.profilepicture:'/assets/user.png'}
           />
           <Texts>
             <Title>{currentvideo.currentvideo.title}</Title>
@@ -119,7 +132,7 @@ window.addEventListener("click", handleClick);
           </Texts>
         </Details>
         </Link>
-        <div className='myb32'><MoreVertSharpIcon style={{color:'white',marginTop:'10px'}} id='modal' onClick={()=>setOp(true)}/>{Op && <div style={{position:'absolute',marginLeft:'-59px',marginTop:'-6px',color:'white'}}><div className='op' id='modal' onClick={()=>copyf(`https://irengetubefront.vercel.app/video/test?id=${currentvideo.currentvideo._id}`)} style={{border:'2px solid black',padding:'3px',textAlign: 'center',alignItems:'center' }}>{mycpy}</div>{currentvideo.currentvideo?.userID===channel?._id?<div className='op' onClick={()=>deletepost(currentvideo.currentvideo._id)} style={{border:'2px solid black',padding:'3px'}}>delete post</div>:''}</div>}</div>
+        <div className='myb32' ><MoreVertSharpIcon style={{color: "inherit",marginTop:'10px'}} id='modal'  onClick={()=>setOp(true)}/>{Op && <div style={{position:'absolute',marginLeft:'-59px',marginTop:'-6px',color:'white'}}><div className='op' id='modal' onClick={()=>copyf(`https://irengetubefront.vercel.app/video/test?id=${currentvideo.currentvideo._id}`)} style={{border:'2px solid black',padding:'3px',textAlign: 'center',alignItems:'center' }}>{mycpy}</div>{currentvideo.currentvideo?.userID===currentuser._id?<div className='op' onClick={()=>deletepost(currentvideo.currentvideo._id)} style={{border:'2px solid black',padding:'3px'}}>Delete</div>:''}</div>}</div>
 </div>
       </Container>
     

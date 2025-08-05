@@ -3,6 +3,7 @@ import styled from "styled-components";
 import LamaTube from "../img/logo.png";
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
 import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
@@ -18,15 +19,26 @@ import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
 import { Link } from "react-router-dom";
-import {useSelector} from 'react-redux'
+import {useSelector} from 'react-redux';
+import {useState,useEffect} from 'react';
+
+import apiClient from "../apiclient";
 const Container = styled.div`
-  flex: 1;
+  flex: 1.2;
   background-color: ${({ theme }) => theme.bgLighter};
   height: 100vh;
   color: ${({ theme }) => theme.text};
   font-size: 14px;
   position: sticky;
   top: 0;
+  margin-left:-15px;
+  overflow-y: auto;   
+  overflow-x: hidden;
+ 
+
+
+
+ 
 `;
 const Wrapper = styled.div`
   padding: 18px 26px;
@@ -84,6 +96,19 @@ const Title = styled.h2`
 
 const Menu = ({ darkMode, setDarkMode }) => {
   const {currentuser} = useSelector((state) => state.user)
+  const [sub,setsub]=useState([])
+ 
+  useEffect(()=>{
+    const fectuserf=async()=>{
+ 
+      const followingv = await Promise.all(
+        currentuser.subscribings.map((x) => apiClient.get(`user/myuser/${x}`))
+      );
+      const followingb= followingv.map((x)=>x.data)
+      setsub(followingb)
+    }
+    fectuserf()
+  },[])
   return (
     <Container>
       <Wrapper>
@@ -99,24 +124,22 @@ const Menu = ({ darkMode, setDarkMode }) => {
           Home
           
         </Item></Link>
-        <Item>
+        {/* <Item>
           <ExploreOutlinedIcon />
           Explore
-        </Item>
-        <Item>
+        </Item> */}
+      <Link to="/?id=sub" style={{ textDecoration: "none", color: "inherit" }}><Item>
           <SubscriptionsOutlinedIcon />
           Subscriptions
         </Item>
-        <Hr />
-        <Item>
-          <VideoLibraryOutlinedIcon />
-          Library
-        </Item>
-        <Item>
+        </Link>
+        <Link to="/?id=history" style={{ textDecoration: "none", color: "inherit" }}><Item>
           <HistoryOutlinedIcon />
           History
         </Item>
-        {!currentuser && <Hr />}
+        </Link>
+        <Hr />
+      
        {!currentuser && <Login>
           Sign in to like videos, comment, and subscribe.
          <Link to="signin" style={{textDecoration:"none"}}>
@@ -126,45 +149,36 @@ const Menu = ({ darkMode, setDarkMode }) => {
             </Button>
           </Link>  
         </Login>}
-      <Hr />
-        <Title>BEST OF IrengeTUBE</Title>
-        <Item>
-          <LibraryMusicOutlinedIcon />
-          Music
-        </Item>
-        <Item>
-          <SportsBasketballOutlinedIcon />
-          Sports
-        </Item>
-        <Item>
-          <SportsEsportsOutlinedIcon />
-          Gaming
-        </Item>
-        <Item>
-          <MovieOutlinedIcon />
-          Movies
-        </Item>
-        <Item>
-          <ArticleOutlinedIcon />
-          News
-        </Item>
-        <Item>
+        {!currentuser && <Hr />}
+        <Link to="?id=Me" style={{ textDecoration: "none", color: "inherit" }}>
+          <Item>
+            You &gt;          </Item>
+          
+         </Link> 
+          <Link to="/?id=yourv" style={{ textDecoration: "none", color: "inherit" }}><Item>
           <LiveTvOutlinedIcon />
-          Live
+          Your videos
         </Item>
+        </Link>
+        <Link to="/?id=playlist" style={{ textDecoration: "none", color: "inherit" }}><Item>
+          <VideoLibraryOutlinedIcon />
+          See later
+        </Item>
+        </Link>
+        <Link to="/?id=Likedv" style={{ textDecoration: "none", color: "inherit" }}><Item>
+          <ThumbUpIcon/>
+          Videos liked
+        </Item>
+        </Link>
+       
+      <Hr />
+        <Title>Subscriptions</Title>
+        {sub.length>0?sub.map((x)=>{
+          return (
+          <div><Link to={`/?id=Mee&ids=${x._id}&username=${x.username}&profilepicture=${x.profilepicture}`} style={{ textDecoration: "none", color: "inherit" ,display:'flex',paddingTop:'10px'}}><img  style={{width: "40px", height: "40px",cursor:'pointer', borderRadius: "50%",objectFit: "cover",cursor: "pointer",marginRight: "10px"}} src={x.profilepicture?x.profilepicture:'/assets/user.png'} /><Title>{x?.username}</Title></Link></div>)}
+       ):<div> 0 subscription</div>}
+       
         <Hr />
-        <Item>
-          <SettingsOutlinedIcon />
-          Settings
-        </Item>
-        <Item>
-          <FlagOutlinedIcon />
-          Report
-        </Item>
-        <Item>
-          <HelpOutlineOutlinedIcon />
-          Help
-        </Item>
         <Item onClick={() => setDarkMode(!darkMode)}>
           <SettingsBrightnessOutlinedIcon />
           {darkMode ? "Light" : "Dark"} Mode
