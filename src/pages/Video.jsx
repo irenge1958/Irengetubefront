@@ -22,14 +22,14 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  flex: 5;
+  flex: 3.8;
 `;
 const VideoWrapper = styled.div``;
 
 const Title = styled.h1`
   font-size: 18px;
   font-weight: 400;
-  margin-top: 20px;
+ 
   margin-bottom: 10px;
   color: ${({ theme }) => theme.text};
 `;
@@ -207,9 +207,9 @@ const channelinfo=await apiClient.get(`/user/myuser/${getvideo.data.userID}`)
             <Button onClick={handledislike}>
             {currentvideo?.dislikes.includes(currentuser?._id)?<ThumbDownIcon />:<ThumbDownOffAltOutlinedIcon /> }
             </Button>
-            <Button>
+            {/* <Button>
               <ReplyOutlinedIcon /> Share
-            </Button>
+            </Button> */}
             <Button>
               <AddTaskOutlinedIcon /> Save
             </Button>
