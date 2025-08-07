@@ -15,6 +15,7 @@ import {useEffect,useState} from 'react'
 import apiClient from "../apiclient";
 import {format} from 'timeago.js'
 import { useLocation } from "react-router-dom";
+import { useMediaQuery } from 'react-responsive';
 
 const Container = styled.div`
   display: flex;
@@ -119,7 +120,7 @@ const Video = () => {
   const [ns,setns]=useState()
   const dispatch=useDispatch()
   const location = useLocation();
-  
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   const [channel,setChannel]=useState({})
  const [suggestedvideos,setsuggestedvideos]=useState([])
   // Function to retrieve query parameters
@@ -187,9 +188,9 @@ const channelinfo=await apiClient.get(`/user/myuser/${getvideo.data.userID}`)
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
+        <iframe
             width="100%"
-            height="720"
+            height={isMobile?"250":"400"}
             src={currentvideo?.videourl}
             title="YouTube video player"
             frameborder="0"
