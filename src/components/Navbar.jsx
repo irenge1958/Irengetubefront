@@ -66,7 +66,6 @@ const Searchx = styled.div`
 `;
 
 const Search = styled.div`
-  width: 70%;
   position: absolute;
   left: 0px;
   right: 0px;
@@ -202,11 +201,11 @@ const Userbadge=styled.div`
             <Img src={LamaTube} />
             
           </Logo>}
-        <Search>
+        <Search  style={isMobile?{width:'70%'}:{width:'40%'}}>
           <Searchx>
           <Input placeholder="Search" id="modal1" ref={mysearch} onChange={(e)=>handlesearch(e.target.value)}/>
           <SearchOutlinedIcon /></Searchx>
-          <Searchbox style={isMobile?{width:'540px'}:{width:'200px'}}>
+          <Searchbox >
        {result && result.map((a)=>{
 return <><Link style={{ textDecoration: 'none' }} onClick={()=>{givesearch(a.title)}} to={`/videor/test?id=${a._id}`} >
                 <Searched>

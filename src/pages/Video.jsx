@@ -233,9 +233,9 @@ const channelinfo=await apiClient.get(`/user/myuser/${getvideo.data.userID}`)
         <Hr />
         <Comments/>
       </Content>
-      <Recommendation>
-      {suggestedvideos?.length>0?suggestedvideos.map((x)=>{return <Card type="sm" video={x} />}):'no related found'}
-      </Recommendation>
+      {!isMobile && <Recommendation>
+      {suggestedvideos.length>0?suggestedvideos.map((x)=>{return <Card type="sm" video={x} />}):'no related found'}
+      </Recommendation>}
     </Container>
   );
 };

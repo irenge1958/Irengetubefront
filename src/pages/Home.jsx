@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "../components/Card";
+import Card2 from "../components/Card2";
 import apiClient from "../apiclient";
 import {useState,useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import { useLocation } from "react-router-dom";
 import Allvideos from "./Allvideos"
 import Userpage from "./userpage";
+import { useMediaQuery } from 'react-responsive';
 const Container = styled.div`
   display: flex;
   gap: 20px;
@@ -14,6 +16,7 @@ const Container = styled.div`
 `;
 
 const Home = () => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   const [randomvideos,setRandomvideos]=useState([])
   const {currentuser} = useSelector((state) => state.user)
   const location = useLocation();
@@ -78,7 +81,7 @@ const Home = () => {
 
      id==='Mee'?(<Userpage />):id==='Me'?(<Allvideos  />):(<Container>
 {randomvideos.length>0 ? randomvideos.map((x) => {
-  return <Card currentvideo={x} key={x._id} />;
+  return isMobile?(<Card currentvideo={x} key={x._id} />):(<Card2 currentvideo={x} key={x._id} />);
 }) : <div style={{margin:'auto',
   
   left:0,
