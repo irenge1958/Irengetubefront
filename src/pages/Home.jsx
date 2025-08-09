@@ -9,6 +9,7 @@ import { useLocation } from "react-router-dom";
 import Allvideos from "./Allvideos"
 import Userpage from "./userpage";
 import { useMediaQuery } from 'react-responsive';
+import {CircularProgress} from '@mui/material'
 const Container = styled.div`
   display: flex;
   gap: 20px;
@@ -81,13 +82,13 @@ const Home = () => {
 
      id==='Mee'?(<Userpage />):id==='Me'?(<Allvideos  />):(<Container>
 {randomvideos.length>0 ? randomvideos.map((x) => {
-  return isMobile?(<Card currentvideo={x} key={x._id} />):(<Card2 currentvideo={x} key={x._id} />);
+  return !isMobile?(<Card currentvideo={x} key={x._id} />):(<Card2 currentvideo={x} key={x._id} />);
 }) : <div style={{margin:'auto',
   
   left:0,
   marginTop:'20%'
  
-  }}>0 videos</div>}
+  }}><CircularProgress size="60px" style={{ color: '#4db8ff', strokeWidth: '2px' }} /></div>}
     </Container>)
   );
 };

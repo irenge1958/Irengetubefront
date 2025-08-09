@@ -17,9 +17,11 @@ import apiClient from "../apiclient";
 import {format} from 'timeago.js'
 import { useLocation } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
+import {CircularProgress} from '@mui/material'
 const Container = styled.div`
   display: flex;
   gap: 24px;
+  width:100%
 `;
 
 const Content = styled.div`
@@ -47,7 +49,9 @@ const Info = styled.span`
 
 const Recommendation = styled.div`
   display: flex;
-  flex-direction:column
+  flex-direction:column;
+  width:100%
+
 `;
 const Channel = styled.div`
   display: flex;
@@ -117,7 +121,16 @@ dispatch(successfecth(getvideo.data))
   return (
     <Container>
       <Recommendation>
-      {suggestedvideos.length>0?suggestedvideos.map((x)=>{return isMobile?<Card  video={x} />:<Card2 type="bg" video={x} />}):'no related found'}
+      {suggestedvideos.length>0?suggestedvideos.map((x)=>{return isMobile?<Card  video={x} />:<Card2 type="bg" video={x} />}):<div   style={{
+    display: 'flex',
+    justifyContent: 'center', // horizontal centering
+    alignItems: 'center',     // vertical centering
+    width: '100%',            // take up full horizontal space
+    height: '100vh'           // optional, for full screen vertical centering
+  }}
+>
+  <CircularProgress size="60px" style={{ color: '#4db8ff', strokeWidth: '2px' }} />
+</div>}
       </Recommendation>
     </Container>
   );
