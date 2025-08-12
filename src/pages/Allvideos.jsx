@@ -28,19 +28,20 @@ const Allvideos=()=>{
       }
     const scrollRef = useRef(null);
 
-    // Scroll Left
-    const scrollLeft = () => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollLeft -= 200; // Adjust the scroll distance
-      }
-    };
+    // // Scroll Left
+    // const scrollLeft = () => {
+      
+    //   if (scrollRef.current) {
+    //     scrollRef.current.scrollLeft -= 200; // Adjust the scroll distance
+    //   }
+    // };
   
-    // Scroll Right
-    const scrollRight = () => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollLeft += 200;
-      }
-    };
+    // // Scroll Right
+    // const scrollRight = () => {
+    //   if (scrollRef.current) {
+    //     scrollRef.current.scrollLeft += 200;
+    //   }
+    // };
    
     const [videohistory,setvideohistory]=useState([])
     const [videosplaylist,setvideosplaylist]=useState([])
@@ -99,9 +100,7 @@ const Allvideos=()=>{
               <Title>Historique</Title>
              <div style={{ display: "flex", alignItems: "center" }}>
       {/* Left Scroll Button */}
-      <button onClick={scrollLeft} style={scrollButtonStyley}>
-        <FaArrowLeft />
-      </button>
+      
 
       {/* Scrollable History */}
       <div
@@ -113,9 +112,9 @@ const Allvideos=()=>{
             overflowX: "auto",
             whiteSpace: "nowrap",
             scrollBehavior: "smooth",
-            maxWidth: "84vw", // Restrict width to prevent screen elongation
+            width: "85vw", // Restrict width to prevent screen elongation
             scrollbarWidth: "none", // Firefox scrollbar
-            marginRight:'-100px',
+            
             
         }}
       >
@@ -125,16 +124,12 @@ const Allvideos=()=>{
       </div>
 
       {/* Right Scroll Button */}
-      <button onClick={scrollRight} style={scrollButtonStylex}>
-        <FaArrowRight />
-      </button>
+      
     </div>
     <Title>Liked videos</Title>
              <div style={{ display: "flex", alignItems: "center" }}>
       {/* Left Scroll Button */}
-      <button onClick={scrollLeft} style={scrollButtonStyley}>
-        <FaArrowLeft />
-      </button>
+    
 
       {/* Scrollable History */}
       <div
@@ -148,19 +143,24 @@ const Allvideos=()=>{
             scrollBehavior: "smooth",
             maxWidth: "84vw", // Restrict width to prevent screen elongation
             scrollbarWidth: "none", // Firefox scrollbar
-            marginRight:'-100px',
+            
             
         }}
       >
         {videohistory.length!==0?videosLiked.map((x) => (
           <Card style={{width:'360px'}} currentvideo={x} key={x._id} />
-        )):<div style={{margin:'auto',left:0,marginTop:'20%'}}>0 videos</div>}
+        )):<div style={{margin:'auto',left:0,marginTop:'20%'}}><div   style={{
+          display: 'flex',
+          justifyContent: 'center', // horizontal centering
+               // vertical centering
+          width: '100%',            // take up full horizontal space
+          height: '50vh'           // optional, for full screen vertical centering
+        }}
+      ></div></div>}
       </div>
 
       {/* Right Scroll Button */}
-      <button onClick={scrollRight} style={scrollButtonStylex}>
-        <FaArrowRight />
-      </button>
+    
     </div>
     <Title>See Later</Title>
              <div style={{ display: "flex", alignItems: "center" }}>
@@ -181,7 +181,7 @@ const Allvideos=()=>{
             scrollBehavior: "smooth",
             maxWidth: "84vw", // Restrict width to prevent screen elongation
             scrollbarWidth: "none", // Firefox scrollbar
-            marginRight:'-100px',
+            
             
         }}
       >
@@ -191,16 +191,12 @@ const Allvideos=()=>{
       </div>
 
       {/* Right Scroll Button */}
-      <button onClick={scrollRight} style={scrollButtonStylex}>
-        <FaArrowRight />
-      </button>
+     
     </div>
     <Title>Subscriptions videos</Title>
              <div style={{ display: "flex", alignItems: "center" }}>
       {/* Left Scroll Button */}
-      <button onClick={scrollLeft} style={scrollButtonStyley}>
-        <FaArrowLeft />
-      </button>
+     
 
       {/* Scrollable History */}
       <div
@@ -214,7 +210,7 @@ const Allvideos=()=>{
             scrollBehavior: "smooth",
             maxWidth: "84vw", // Restrict width to prevent screen elongation
             scrollbarWidth: "none", // Firefox scrollbar
-            marginRight:'-100px',
+            
             
         }}
       >
@@ -224,9 +220,7 @@ const Allvideos=()=>{
       </div>
 
       {/* Right Scroll Button */}
-      <button onClick={scrollRight} style={scrollButtonStylex}>
-        <FaArrowRight />
-      </button>
+      
     </div>
     <div>
 

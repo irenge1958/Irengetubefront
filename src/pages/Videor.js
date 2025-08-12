@@ -119,7 +119,7 @@ dispatch(successfecth(getvideo.data))
    
 
   return (
-    <Container>
+    <Container style={suggestedvideos.length>1?{width:'100%'}:{width:'100%',height:'100vh'}}>
       <Recommendation>
       {suggestedvideos.length>0?suggestedvideos.map((x)=>{return isMobile?<Card  video={x} />:<Card2 type="bg" video={x} />}):<div   style={{
     display: 'flex',

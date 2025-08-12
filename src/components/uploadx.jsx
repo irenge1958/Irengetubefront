@@ -65,7 +65,7 @@ const navigateto=useNavigate();
     };
 
     return (
-        <div style={{ zIndex: '100000000', left: '0', width: '100%', height: '100vh', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+        <div style={{ zIndex: '100000000',marginTop:'450px', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
             <ModalContent >
                 <span>
                     <p style={{ color: '#aaa', float: 'right', fontSize: '28px', fontWeight: 'bold', cursor: 'pointer' }} onClick={() => setpop(false)}>x</p>

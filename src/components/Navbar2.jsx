@@ -168,7 +168,24 @@ padding-left:5px
 `
   return (
     <Container>
-        {pop && <Uploadx setpop={setpop}/>}
+        {pop && (
+  <div
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
+      backgroundColor: "rgba(0,0,0,0.5)", // dim background
+      display: "flex",
+      alignItems: "center", // vertical center
+      justifyContent: "center", // horizontal center
+      zIndex: 9999
+    }}
+  >
+    <Uploadx style="p" setpop={setpop} />
+  </div>
+)}
       <>
       
       <Wrapper>
