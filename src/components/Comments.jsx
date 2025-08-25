@@ -98,7 +98,7 @@ cursor: pointer;
         <Input ref={mycontent} placeholder="Add a comment..." onFocus={()=>setmybutton(true)}/>
        
       </NewComment>
-      {mybutton && <Downcomment><p style={{marginTop:'1px',marginLeft:'70px',cursor:'pointer'}}><EmojiEmotionsIcon/></p><span style={{display:'flex',gap:'10px'}}><Buttons  onClick={()=>setmybutton(false)}>cancel</Buttons> <Button onClick={handlecomment}>Add new message</Button> </span></Downcomment> }  
+      {mybutton && <Downcomment><p style={{marginTop:'1px',marginLeft:'70px',cursor:'pointer'}}></p><span style={{display:'flex',gap:'10px'}}><Buttons  onClick={()=>setmybutton(false)}>cancel</Buttons> <Button onClick={handlecomment}>Add comment</Button> </span></Downcomment> }  
       {reversedComments?.map((x)=><Comment key={reversedComments._id} mycomment={x}/>)}
     </Container>
   );

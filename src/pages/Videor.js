@@ -96,6 +96,7 @@ const Videor = () => {
   // Function to retrieve query parameters
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get('id');
+  const vid = queryParams.get('vid');
   console.log(id)
   useEffect(()=>{
     const fectchv=async()=>{    
@@ -129,7 +130,7 @@ dispatch(successfecth(getvideo.data))
     height: '100vh'           // optional, for full screen vertical centering
   }}
 >
-  <CircularProgress size="60px" style={{ color: '#4db8ff', strokeWidth: '2px' }} />
+{vid>0?<CircularProgress size="60px" style={{ color: '#4db8ff', strokeWidth: '2px' }} />:'0 video correspond this research'}
 </div>}
       </Recommendation>
     </Container>

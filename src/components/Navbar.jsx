@@ -162,6 +162,18 @@ window.addEventListener('click', handleClickOutsidex);
  setResults(myvideos.data)
  
     }
+    const getelement=async()=>{
+     
+      const myvideos=await apiClient.get(`/videos/searchs/${mysearch.current.value}`)
+     if(myvideos.data.length){
+      
+      navigate(`/videor/test?id=${myvideos.data[0]._id}&vid=${myvideos.data.length}`)
+     }
+     if(myvideos.data.length===0){
+      
+      navigate(`/videor/test?id=${myvideos.data._id}&vid=${myvideos.data.length}`)
+     }
+     }
     const Searchbox = styled.div`
   position:absolute;
   z-index: 200000000;
@@ -204,7 +216,7 @@ const Userbadge=styled.div`
         <Search  style={isMobile?{width:'70%'}:{width:'40%'}}>
           <Searchx>
           <Input placeholder="Search" id="modal1" ref={mysearch} onChange={(e)=>handlesearch(e.target.value)}/>
-          <SearchOutlinedIcon /></Searchx>
+          <SearchOutlinedIcon onClick={getelement} /></Searchx>
           <Searchbox >
        {result && result.map((a)=>{
 return <><Link style={{ textDecoration: 'none' }} onClick={()=>{givesearch(a.title)}} to={`/videor/test?id=${a._id}`} >
