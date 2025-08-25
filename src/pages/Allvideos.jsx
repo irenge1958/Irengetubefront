@@ -165,9 +165,7 @@ const Allvideos=()=>{
     <Title>See Later</Title>
              <div style={{ display: "flex", alignItems: "center" }}>
       {/* Left Scroll Button */}
-      <button onClick={scrollLeft} style={scrollButtonStyley}>
-        <FaArrowLeft />
-      </button>
+   
 
       {/* Scrollable History */}
       <div
